@@ -1,0 +1,17 @@
+.circle-list {
+    list-style-type: none; /* Remove default bullets */
+}
+.circle-list li {
+    position: relative;
+    padding-left: 20px; /* Space for the circle */
+    margin-bottom: 5px;
+}
+.circle-list li::before {
+    content: '•'; /* Unicode bullet */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000; /* Color of the circle */
+    font-size: 1.5em; /* Size of the circle */
+}

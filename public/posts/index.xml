@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Binary Search</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Binary Search</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Jun 2024 09:55:22 +0600</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What is Binary Search?</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Wed, 26 Jun 2024 09:55:22 +0600</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the search interval in half. If the value of the search key is less than the item in the middle of the interval, the algorithm narrows the interval to the lower half. Otherwise, it narrows it to the upper half. This process continues until the value is found or the interval is empty.</description>
+    </item>
+  </channel>
+</rss>
