@@ -198,6 +198,8 @@ int main() {
 
 The binary search successfully finds the target 3 in the matrix at position (0, 1).
 
+N.B. This code for 0 base indexing.
+
  ### Practice some problem depends on Binary Search of 2D array
 
  1. [Median in a row-wise sorted Matrix] (https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=median-in-a-row-wise-sorted-matrix)
