@@ -48,7 +48,7 @@
   <meta itemprop="description" content="Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the search interval in half. If the value of the search key is less than the item in the middle of the interval, the algorithm narrows the interval to the lower half. Otherwise, it narrows it to the upper half. This process continues until the value is found or the interval is empty.">
   <meta itemprop="datePublished" content="2024-06-26T09:55:22+06:00">
   <meta itemprop="dateModified" content="2024-06-26T09:55:22+06:00">
-  <meta itemprop="wordCount" content="526">
+  <meta itemprop="wordCount" content="1014">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="What is Binary Search?">
   <meta name="twitter:description" content="Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the search interval in half. If the value of the search key is less than the item in the middle of the interval, the algorithm narrows the interval to the lower half. Otherwise, it narrows it to the upper half. This process continues until the value is found or the interval is empty.">
@@ -240,6 +240,83 @@
 <li>
 <p>[Minimum Limit of Balls in a Bag] (<a href="https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/description/">https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/description/</a>)</p>
 </li>
+</ol>
+<h1 id="binary-search-in-2d-array">Binary Search in 2D Array</h1>
+<blockquote>
+<p>Binary search is a widely used algorithm due to its efficiency in finding an element in a sorted array. While it&rsquo;s straightforward to implement binary search in a 1D array, it can be extended to a 2D array as well, given the array meets certain conditions. This post will explain how to perform binary search in a 2D array and provide a sample implementation in C++.</p>
+</blockquote>
+<h3 id="conditions-for-binary-search-in-a-2d-array">Conditions for Binary Search in a 2D Array</h3>
+<blockquote>
+<p>For binary search to work in a 2D array, the array must be sorted. The common condition is:</p>
+</blockquote>
+<ul>
+<li>Each row is sorted in ascending order.</li>
+<li>The first integer of each row is greater than the last integer of the previous row.</li>
+</ul>
+<h3 id="algorithm-explanation">Algorithm Explanation</h3>
+<ol>
+<li>Flatten the 2D Array: Treat the 2D array as a 1D array. We can calculate the middle element by considering the entire array as a single sorted list.</li>
+<li>Calculate Indices: Convert the middle index back to 2D indices to access the element.</li>
+<li>Compare and Adjust: Compare the target element with the middle element and adjust the search range accordingly.</li>
+</ol>
+<h3 id="implementation-in-c">Implementation in C++</h3>
+<p>Here is a C++ implementation of binary search in a 2D array:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">binarySearch2D</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> matrix, <span style="color:#66d9ef">int</span> target) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (matrix.empty() <span style="color:#f92672">||</span> matrix[<span style="color:#ae81ff">0</span>].empty()) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> rows <span style="color:#f92672">=</span> matrix.size();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> cols <span style="color:#f92672">=</span> matrix[<span style="color:#ae81ff">0</span>].size();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> right <span style="color:#f92672">=</span> rows <span style="color:#f92672">*</span> cols <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;=</span> right) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> midElement <span style="color:#f92672">=</span> matrix[mid <span style="color:#f92672">/</span> cols][mid <span style="color:#f92672">%</span> cols];
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (midElement <span style="color:#f92672">==</span> target) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (midElement <span style="color:#f92672">&lt;</span> target) {
+</span></span><span style="display:flex;"><span>            left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> matrix <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">20</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">60</span>}
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> target <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> result <span style="color:#f92672">=</span> binarySearch2D(matrix, target);
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> (result <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;Found&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Not Found&#34;</span>) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="explanation-of-the-code">Explanation of the Code</h3>
+<ol>
+<li>Initialization: Pointers left and right are initialized to the start and end of the flattened array, respectively.</li>
+<li>Mid Calculation: The middle index is calculated and converted to 2D indices to get the middle element.</li>
+<li>Comparison and Adjustment: The middle element is compared with the target. If it matches, true is returned. If the middle element is less than the target, the left pointer is adjusted. Otherwise, the right pointer is adjusted.</li>
+<li>Termination: The loop continues until left exceeds right. If the target is not found, false is returned.</li>
+</ol>
+<p>This method ensures an optimal time complexity of O(log(m * n)), where m is the number of rows and n is the number of columns.</p>
+<h3 id="practice-some-problem-depends-on-binary-search-of-2d-array">Practice some problem depends on Binary Search of 2D array</h3>
+<ol>
+<li>[Median in a row-wise sorted Matrix] (<a href="https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=median-in-a-row-wise-sorted-matrix">https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=median-in-a-row-wise-sorted-matrix</a>)</li>
+<li>[Find a Peak Element II] (<a href="https://leetcode.com/problems/find-a-peak-element-ii/description/">https://leetcode.com/problems/find-a-peak-element-ii/description/</a>)</li>
+<li>[Search a 2D Matrix] (<a href="https://leetcode.com/problems/search-a-2d-matrix/description/">https://leetcode.com/problems/search-a-2d-matrix/description/</a>)</li>
+<li>[Search a 2D Matrix II] (<a href="https://leetcode.com/problems/search-a-2d-matrix-ii/description/">https://leetcode.com/problems/search-a-2d-matrix-ii/description/</a>)</li>
+<li>[Row with max 1s] (<a href="https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=row-with-max-1s">https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=row-with-max-1s</a>)</li>
 </ol>
 <ul class="pa0">
   

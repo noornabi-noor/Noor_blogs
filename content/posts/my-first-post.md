@@ -92,3 +92,81 @@ int main() {
 13. [Find the Distance Value Between Two Arrays] (https://leetcode.com/problems/find-the-distance-value-between-two-arrays/description/)
 14. [Maximum Tastiness of Candy Basket] (https://leetcode.com/problems/maximum-tastiness-of-candy-basket/description/)
 15. [Minimum Limit of Balls in a Bag] (https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/description/)
+
+
+# Binary Search in 2D Array
+
+> Binary search is a widely used algorithm due to its efficiency in finding an element in a sorted array. While it's straightforward to implement binary search in a 1D array, it can be extended to a 2D array as well, given the array meets certain conditions. This post will explain how to perform binary search in a 2D array and provide a sample implementation in C++.
+
+### Conditions for Binary Search in a 2D Array
+> For binary search to work in a 2D array, the array must be sorted. The common condition is:
+
+- Each row is sorted in ascending order.
+- The first integer of each row is greater than the last integer of the previous row.
+
+### Algorithm Explanation
+1. Flatten the 2D Array: Treat the 2D array as a 1D array. We can calculate the middle element by considering the entire array as a single sorted list.
+2. Calculate Indices: Convert the middle index back to 2D indices to access the element.
+3. Compare and Adjust: Compare the target element with the middle element and adjust the search range accordingly.
+
+### Implementation in C++
+Here is a C++ implementation of binary search in a 2D array:
+
+```cpp
+#include <iostream>
+#include <vector>
+
+bool binarySearch2D(const std::vector<std::vector<int>>& matrix, int target) {
+    if (matrix.empty() || matrix[0].empty()) {
+        return false;
+    }
+    
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    int left = 0;
+    int right = rows * cols - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        int midElement = matrix[mid / cols][mid % cols];
+        
+        if (midElement == target) {
+            return true;
+        } else if (midElement < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    
+    return false;
+}
+
+int main() {
+    std::vector<std::vector<int>> matrix = {
+        {1, 3, 5, 7},
+        {10, 11, 16, 20},
+        {23, 30, 34, 60}
+    };
+    int target = 3;
+    bool result = binarySearch2D(matrix, target);
+    std::cout << (result ? "Found" : "Not Found") << std::endl;
+    
+    return 0;
+}
+```
+### Explanation of the Code
+1. Initialization: Pointers left and right are initialized to the start and end of the flattened array, respectively.
+2. Mid Calculation: The middle index is calculated and converted to 2D indices to get the middle element.
+3. Comparison and Adjustment: The middle element is compared with the target. If it matches, true is returned. If the middle element is less than the target, the left pointer is adjusted. Otherwise, the right pointer is adjusted.
+4. Termination: The loop continues until left exceeds right. If the target is not found, false is returned.
+
+ This method ensures an optimal time complexity of O(log(m * n)), where m is the number of rows and n is the number of columns.
+
+ ### Practice some problem depends on Binary Search of 2D array
+
+ 1. [Median in a row-wise sorted Matrix] (https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=median-in-a-row-wise-sorted-matrix)
+ 2. [Find a Peak Element II] (https://leetcode.com/problems/find-a-peak-element-ii/description/)
+ 3. [Search a 2D Matrix] (https://leetcode.com/problems/search-a-2d-matrix/description/)
+ 4. [Search a 2D Matrix II] (https://leetcode.com/problems/search-a-2d-matrix-ii/description/)
+ 5. [Row with max 1s] (https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=row-with-max-1s)
