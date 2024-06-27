@@ -155,6 +155,7 @@ int main() {
     return 0;
 }
 ```
+
 ### Explanation of the Code
 1. Initialization: Pointers left and right are initialized to the start and end of the flattened array, respectively.
 2. Mid Calculation: The middle index is calculated and converted to 2D indices to get the middle element.
@@ -162,6 +163,40 @@ int main() {
 4. Termination: The loop continues until left exceeds right. If the target is not found, false is returned.
 
  This method ensures an optimal time complexity of O(log(m * n)), where m is the number of rows and n is the number of columns.
+
+ ### Step-by-Step Explanation
+
+1. Initialization:
+- rows = 3 (number of rows in the matrix)
+- cols = 4 (number of columns in the matrix)
+- left = 0 (starting index in the flattened array)
+- right = 11 (ending index in the flattened array, calculated as rows * cols - 1)
+2. First Iteration:
+- Calculate the middle index: mid = (left + right) / 2 = (0 + 11) / 2 = 5
+- Convert mid to 2D indices: mid_row = 5 / 4 = 1 and mid_col = 5 % 4 = 1
+- Get the middle element: matrix[1][1] = 11
+- Compare mid_element with target:
+    - 11 (mid_element) is greater than 3 (target), so update right to mid - 1 = 4
+3. Second Iteration:
+- Calculate the new middle index: mid = (left + right) / 2 = (0 + 4) / 2 = 2
+- Convert mid to 2D indices: mid_row = 2 / 4 = 0 and mid_col = 2 % 4 = 2
+- Get the middle element: matrix[0][2] = 5
+- Compare mid_element with target:
+    - 5 (mid_element) is greater than 3 (target), so update right to mid - 1 = 1
+4. Third Iteration:
+- Calculate the new middle index: mid = (left + right) / 2 = (0 + 1) / 2 = 0
+- Convert mid to 2D indices: mid_row = 0 / 4 = 0 and mid_col = 0 % 4 = 0
+- Get the middle element: matrix[0][0] = 1
+- Compare mid_element with target:
+    - 1 (mid_element) is less than 3 (target), so update left to mid + 1 = 1
+5. Fourth Iteration:
+- Calculate the new middle index: mid = (left + right) / 2 = (1 + 1) / 2 = 1
+- Convert mid to 2D indices: mid_row = 1 / 4 = 0 and mid_col = 1 % 4 = 1
+- Get the middle element: matrix[0][1] = 3
+- Compare mid_element with target:
+    - 3 (mid_element) is equal to 3 (target), so return true
+
+The binary search successfully finds the target 3 in the matrix at position (0, 1).
 
  ### Practice some problem depends on Binary Search of 2D array
 
