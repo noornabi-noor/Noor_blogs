@@ -207,3 +207,40 @@ N.B. This code for 0 base indexing.
  3. [Search a 2D Matrix] (https://leetcode.com/problems/search-a-2d-matrix/description/)
  4. [Search a 2D Matrix II] (https://leetcode.com/problems/search-a-2d-matrix-ii/description/)
  5. [Row with max 1s] (https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=row-with-max-1s)
+
+
+
+ ## In Binary Search why used it best to find Mid, mid=low+(low-high)/2 instead of mid=(low+high)/2 ?
+
+ The main reason for using mid = low + (high - low) / 2 instead of mid = (low + high) / 2 in binary search is to avoid potential overflow issues.
+
+**Explanation:**
+- Overflow Issue:
+
+When you use mid = (low + high) / 2, if low and high are large values, their sum might exceed the maximum value that can be stored in an integer variable, causing an overflow.
+For example, in a system where integers are represented using 32 bits, the maximum value an integer can hold is 
+2^31 − 1. If low and high are both close to this maximum value, their sum will exceed this limit, causing incorrect behavior.
+
+- Avoiding Overflow:
+
+By using mid = low + (high - low) / 2, you ensure that you are always working within the bounds of the integer range. The difference (high - low) will always be a non-negative value less than or equal to the range of the list, thus avoiding the risk of overflow.
+
+**Example:**
+
+Consider an array with indices ranging from 0 to 2^31 − 1:
+
+low = 0
+
+high = 2^{31} - 1
+
+> Using mid = (low + high) / 2:
+
+The sum 0+(2^31 − 1)=2^31 − 1, which is within the 32-bit integer range.
+However, if low and high are not 0 and the maximum value, but rather large enough values close to the maximum, their sum could exceed the limit.
+
+> Using mid = low + (high - low) / 2:
+
+high - low is always less than or equal to 
+2^31 − 1, and adding this difference to low keeps the value within the range.
+
+So, using mid = low + (high - low) / 2 is a safer and more robust way to calculate the midpoint in binary search, as it avoids overflow issues that can occur with mid = (low + high) / 2.

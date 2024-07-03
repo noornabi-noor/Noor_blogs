@@ -48,7 +48,7 @@
   <meta itemprop="description" content="Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the search interval in half. If the value of the search key is less than the item in the middle of the interval, the algorithm narrows the interval to the lower half. Otherwise, it narrows it to the upper half. This process continues until the value is found or the interval is empty.">
   <meta itemprop="datePublished" content="2024-06-26T09:55:22+06:00">
   <meta itemprop="dateModified" content="2024-06-26T09:55:22+06:00">
-  <meta itemprop="wordCount" content="1344">
+  <meta itemprop="wordCount" content="1679">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="What is Binary Search?">
   <meta name="twitter:description" content="Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the search interval in half. If the value of the search key is less than the item in the middle of the interval, the algorithm narrows the interval to the lower half. Otherwise, it narrows it to the upper half. This process continues until the value is found or the interval is empty.">
@@ -373,6 +373,7 @@
 </li>
 </ul>
 <p>The binary search successfully finds the target 3 in the matrix at position (0, 1).</p>
+<p>N.B. This code for 0 base indexing.</p>
 <h3 id="practice-some-problem-depends-on-binary-search-of-2d-array">Practice some problem depends on Binary Search of 2D array</h3>
 <ol>
 <li>[Median in a row-wise sorted Matrix] (<a href="https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=median-in-a-row-wise-sorted-matrix">https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=median-in-a-row-wise-sorted-matrix</a>)</li>
@@ -381,6 +382,34 @@
 <li>[Search a 2D Matrix II] (<a href="https://leetcode.com/problems/search-a-2d-matrix-ii/description/">https://leetcode.com/problems/search-a-2d-matrix-ii/description/</a>)</li>
 <li>[Row with max 1s] (<a href="https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=row-with-max-1s">https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1?utm_source=youtube&amp;utm_medium=collab_striver_ytdescription&amp;utm_campaign=row-with-max-1s</a>)</li>
 </ol>
+<h2 id="in-binary-search-why-used-it-best-to-find-mid-midlowlow-high2-instead-of-midlowhigh2-">In Binary Search why used it best to find Mid, mid=low+(low-high)/2 instead of mid=(low+high)/2 ?</h2>
+<p>The main reason for using mid = low + (high - low) / 2 instead of mid = (low + high) / 2 in binary search is to avoid potential overflow issues.</p>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>Overflow Issue:</li>
+</ul>
+<p>When you use mid = (low + high) / 2, if low and high are large values, their sum might exceed the maximum value that can be stored in an integer variable, causing an overflow.
+For example, in a system where integers are represented using 32 bits, the maximum value an integer can hold is
+2^31 − 1. If low and high are both close to this maximum value, their sum will exceed this limit, causing incorrect behavior.</p>
+<ul>
+<li>Avoiding Overflow:</li>
+</ul>
+<p>By using mid = low + (high - low) / 2, you ensure that you are always working within the bounds of the integer range. The difference (high - low) will always be a non-negative value less than or equal to the range of the list, thus avoiding the risk of overflow.</p>
+<p><strong>Example:</strong></p>
+<p>Consider an array with indices ranging from 0 to 2^31 − 1:</p>
+<p>low = 0</p>
+<p>high = 2^{31} - 1</p>
+<blockquote>
+<p>Using mid = (low + high) / 2:</p>
+</blockquote>
+<p>The sum 0+(2^31 − 1)=2^31 − 1, which is within the 32-bit integer range.
+However, if low and high are not 0 and the maximum value, but rather large enough values close to the maximum, their sum could exceed the limit.</p>
+<blockquote>
+<p>Using mid = low + (high - low) / 2:</p>
+</blockquote>
+<p>high - low is always less than or equal to
+2^31 − 1, and adding this difference to low keeps the value within the range.</p>
+<p>So, using mid = low + (high - low) / 2 is a safer and more robust way to calculate the midpoint in binary search, as it avoids overflow issues that can occur with mid = (low + high) / 2.</p>
 <ul class="pa0">
   
 </ul>
