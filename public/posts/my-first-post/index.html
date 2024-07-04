@@ -48,7 +48,7 @@
   <meta itemprop="description" content="Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the search interval in half. If the value of the search key is less than the item in the middle of the interval, the algorithm narrows the interval to the lower half. Otherwise, it narrows it to the upper half. This process continues until the value is found or the interval is empty.">
   <meta itemprop="datePublished" content="2024-06-26T09:55:22+06:00">
   <meta itemprop="dateModified" content="2024-06-26T09:55:22+06:00">
-  <meta itemprop="wordCount" content="1679">
+  <meta itemprop="wordCount" content="2038">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="What is Binary Search?">
   <meta name="twitter:description" content="Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the search interval in half. If the value of the search key is less than the item in the middle of the interval, the algorithm narrows the interval to the lower half. Otherwise, it narrows it to the upper half. This process continues until the value is found or the interval is empty.">
@@ -410,6 +410,49 @@ However, if low and high are not 0 and the maximum value, but rather large enoug
 <p>high - low is always less than or equal to
 2^31 − 1, and adding this difference to low keeps the value within the range.</p>
 <p>So, using mid = low + (high - low) / 2 is a safer and more robust way to calculate the midpoint in binary search, as it avoids overflow issues that can occur with mid = (low + high) / 2.</p>
+<h3 id="in-binary-search-when-used-whilelh-or-whilelh">In binary search when used while(l&lt;=h) or while(l&lt;h)?</h3>
+<blockquote>
+<p>In binary search, the choice between using while (l &lt;= h) and while (l &lt; h) depends on the specific requirements of the problem and the way you want to handle the boundary conditions. Here&rsquo;s a detailed explanation:</p>
+</blockquote>
+<p><strong>while (l &lt;= h)</strong></p>
+<p>This condition is used when you want to include both l and h in the search space. This is appropriate when you are checking or updating the elements at both ends of the range and want to ensure that every element is considered, including the last one.</p>
+<blockquote>
+<p>Example Use Case:
+When searching for a specific element in a sorted array:</p>
+</blockquote>
+<pre tabindex="0"><code class="language-int" data-lang="int">    int l = 0, h = A.size() - 1;
+    while (l &lt;= h) {
+        int mid = l + (h - l) / 2;
+        if (A[mid] == K) {
+            return mid; // Element found
+        } else if (A[mid] &lt; K) {
+            l = mid + 1;
+        } else {
+            h = mid - 1;
+        }
+    }
+    return -1; // Element not found
+}
+</code></pre><p><strong>while (l &lt; h)</strong></p>
+<p>This condition is used when you want to exclude the high boundary from the search space. This is useful when you are trying to find a boundary condition or when you are modifying l and h in such a way that they might converge to the same point.</p>
+<blockquote>
+<p>Example Use Case:
+When searching for the peak in a bitonic array (to avoid redundant checks):</p>
+</blockquote>
+<pre tabindex="0"><code class="language-int" data-lang="int">    int l = 0, h = A.size() - 1;
+    while (l &lt; h) {
+        int mid = l + (h - l) / 2;
+        if (A[mid] &lt; A[mid + 1]) {
+            l = mid + 1; // Move right if the mid element is less than the next element
+        } else {
+            h = mid; // Move left if the mid element is greater than or equal to the next element
+        }
+    }
+    return l; // Peak found
+}
+</code></pre><p><strong>Practical Tips</strong></p>
+<p>Element Search: Use while (l &lt;= h) to ensure all elements, including the last one, are checked.</p>
+<p>Boundary Search: Use while (l &lt; h) when finding specific boundaries or conditions within the array to avoid redundant checks.</p>
 <ul class="pa0">
   
 </ul>

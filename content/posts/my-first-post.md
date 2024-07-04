@@ -244,3 +244,58 @@ high - low is always less than or equal to
 2^31 − 1, and adding this difference to low keeps the value within the range.
 
 So, using mid = low + (high - low) / 2 is a safer and more robust way to calculate the midpoint in binary search, as it avoids overflow issues that can occur with mid = (low + high) / 2.
+
+
+### In binary search when used while(l<=h) or while(l<h)?
+
+> In binary search, the choice between using while (l <= h) and while (l < h) depends on the specific requirements of the problem and the way you want to handle the boundary conditions. Here's a detailed explanation:
+
+**while (l <= h)**
+
+This condition is used when you want to include both l and h in the search space. This is appropriate when you are checking or updating the elements at both ends of the range and want to ensure that every element is considered, including the last one.
+
+> Example Use Case:
+When searching for a specific element in a sorted array:
+
+```int binarySearch(vector<int>& A, int K) {
+    int l = 0, h = A.size() - 1;
+    while (l <= h) {
+        int mid = l + (h - l) / 2;
+        if (A[mid] == K) {
+            return mid; // Element found
+        } else if (A[mid] < K) {
+            l = mid + 1;
+        } else {
+            h = mid - 1;
+        }
+    }
+    return -1; // Element not found
+}
+```
+
+**while (l < h)**
+
+This condition is used when you want to exclude the high boundary from the search space. This is useful when you are trying to find a boundary condition or when you are modifying l and h in such a way that they might converge to the same point.
+
+> Example Use Case:
+When searching for the peak in a bitonic array (to avoid redundant checks):
+
+``` int findPeak(vector<int>& A) {
+    int l = 0, h = A.size() - 1;
+    while (l < h) {
+        int mid = l + (h - l) / 2;
+        if (A[mid] < A[mid + 1]) {
+            l = mid + 1; // Move right if the mid element is less than the next element
+        } else {
+            h = mid; // Move left if the mid element is greater than or equal to the next element
+        }
+    }
+    return l; // Peak found
+}
+```
+
+**Practical Tips**
+
+Element Search: Use while (l <= h) to ensure all elements, including the last one, are checked.
+
+Boundary Search: Use while (l < h) when finding specific boundaries or conditions within the array to avoid redundant checks.
